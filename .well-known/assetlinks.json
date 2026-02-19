@@ -1,0 +1,11 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.vius.vius",
+    "sha256_cert_fingerprints": [
+       "EA:6A:15:ED:CB:E3:82:1E:00:B9:EE:A6:9A:C0:24:15:8A:D3:08:1B",
+       "20:DF:D0:32:04:4E:CD:14:88:5F:AE:9F:D2:DF:75:60:1A:39:8D:75"
+     ]
+   }
+}]

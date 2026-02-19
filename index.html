@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vius - Rate Your Leaders</title>
+    <meta name="description"
+        content="Join Vius and hold your political leaders accountable. Rate, discuss, and track the performance of politicians.">
+
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://viusapp.com/">
+    <meta property="og:title" content="Vius - Rate Your Leaders">
+    <meta property="og:description" content="Join the movement. Rate politicians. Hold power accountable.">
+    <meta property="og:image" content="https://viusapp.com/og-image.png">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Vius - Rate Your Leaders">
+    <meta name="twitter:description" content="Join the movement. Rate politicians. Hold power accountable.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --green: #22C55E;
+            --red: #EF4444;
+            --dark: #0F172A;
+            --gray: #64748B;
+            --light: #F8FAFC;
+        }
+
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            color: white;
+        }
+
+        /* Main Layout */
+        .page {
+            height: 100vh;
+            display: flex;
+            position: relative;
+        }
+
+        .page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 30%, rgba(34, 197, 94, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(239, 68, 68, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Left: Phone */
+        .phone-section {
+            flex: 0 0 45%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Right: Content */
+        .content-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px 60px 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Logo */
+        .logo {
+            width: 280px;
+            height: auto;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+        }
+
+        /* Tagline */
+        .tagline {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 16px;
+        }
+
+        .tagline .highlight-green {
+            color: var(--green);
+        }
+
+        .tagline .highlight-red {
+            color: var(--red);
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: var(--gray);
+            max-width: 400px;
+            margin-bottom: 28px;
+            line-height: 1.5;
+        }
+
+        /* CTA */
+        .cta-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--dark);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(255, 255, 255, 0.15);
+        }
+
+        .btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Coming Soon Badges */
+        .coming-soon-badges {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            color: var(--gray);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .badge svg {
+            width: 16px;
+            height: 16px;
+            opacity: 0.6;
+        }
+
+        /* Features Row */
+        .features-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .feature-mini {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+        }
+
+        .feature-emoji {
+            font-size: 20px;
+        }
+
+        .feature-text {
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Phone Mockup */
+        .phone-frame {
+            position: relative;
+            width: 260px;
+            height: 520px;
+            background: linear-gradient(145deg, #1a1a2e 0%, #0a0a15 100%);
+            border-radius: 36px;
+            padding: 10px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5),
+                inset 0 0 0 2px rgba(255, 255, 255, 0.1);
+        }
+
+        .phone-notch {
+            position: absolute;
+            top: 22px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            background: #000;
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        .status-bar {
+            position: absolute;
+            top: 18px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 5;
+            font-size: 11px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .status-left {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .status-right {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-right svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: #111;
+            border-radius: 28px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .screenshot-carousel {
+            width: 100%;
+            height: 100%;
+        }
+
+        .screenshot {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .screenshot.active {
+            opacity: 1;
+        }
+
+        /* Footer */
+        .footer-inline {
+            position: absolute;
+            bottom: 16px;
+            right: 40px;
+            font-size: 11px;
+            color: var(--gray);
+            z-index: 100;
+        }
+
+        .footer-inline a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            margin-left: 12px;
+        }
+
+        .mobile-logo-container {
+            display: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .phone-section {
+                flex: 0 0 40%;
+                padding: 30px;
+            }
+
+            .content-section {
+                padding: 30px;
+            }
+
+            .tagline {
+                font-size: 36px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .page {
+                flex-direction: column;
+                height: auto;
+                min-height: 100vh;
+                overflow-y: auto;
+                padding-bottom: 40px;
+            }
+
+            html,
+            body {
+                overflow: auto;
+                height: auto;
+            }
+
+            .phone-section {
+                flex: none;
+                padding: 40px 20px 0;
+                order: 1;
+                /* Phone stays top, or change to 2 to move bottom */
+            }
+
+            .content-section {
+                padding: 30px 24px 60px;
+                text-align: center;
+                order: 2;
+            }
+
+            /* Mobile Logo Management */
+            .mobile-logo-container {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                padding: 30px 20px 0;
+            }
+
+            .logo-mobile {
+                max-width: 240px;
+                height: auto;
+                filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+            }
+
+            .logo {
+                display: none;
+                /* Hide original logo in content section on mobile */
+            }
+
+            .phone-section {
+                flex: none;
+                padding: 20px 20px 0;
+                order: 2;
+                /* Move phone below logo/header? No, structure is Logo -> Phone -> Content */
+            }
+
+            .content-section {
+                padding: 20px 24px 80px;
+                /* Reduced top padding, more bottom */
+                text-align: center;
+                order: 3;
+            }
+
+            /* Declutter mobile content */
+            .tagline {
+                font-size: 28px;
+                margin-bottom: 12px;
+            }
+
+            .subtitle {
+                margin: 0 auto 20px;
+                font-size: 14px;
+                max-width: 320px;
+            }
+
+            .btn {
+                padding: 12px 24px;
+                font-size: 14px;
+                width: 100%;
+                justify-content: center;
+                max-width: 320px;
+            }
+
+            .features-row {
+                gap: 12px;
+                margin-top: 10px;
+            }
+
+            .feature-mini {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+
+            .cta-group,
+            .coming-soon-badges,
+            .features-row {
+                justify-content: center;
+            }
+
+            /* Adjust Phone Mockup for Mobile */
+            .phone-frame {
+                width: 240px;
+                height: 480px;
+                margin: 0 auto;
+            }
+
+            .footer-inline {
+                position: relative;
+                top: auto;
+                bottom: auto;
+                left: auto;
+                right: auto;
+                text-align: center;
+                margin-top: auto;
+                padding: 30px 20px;
+                width: 100%;
+                order: 10;
+                z-index: 100;
+            }
+
+            .footer-inline a {
+                display: inline-block;
+                padding: 12px 8px;
+                /* Bigger touch target */
+                font-size: 13px;
+                /* Slightly larger text */
+                color: rgba(255, 255, 255, 0.8);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tagline {
+                font-size: 28px;
+            }
+
+            .phone-frame {
+                width: 200px;
+                height: 400px;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .content-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="page">
+        <!-- Mobile Header Logo -->
+        <div class="mobile-logo-container">
+            <img src="logo.png" alt="Vius" class="logo-mobile">
+        </div>
+
+        <!-- Left: Phone -->
+        <div class="phone-section">
+            <div class="phone-frame">
+                <div class="phone-notch"></div>
+                <div class="status-bar">
+                    <div class="status-left">9:41</div>
+                    <div class="status-right">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12,21L15.6,16.2C14.6,15.45 13.35,15 12,15C10.65,15 9.4,15.45 8.4,16.2L12,21M12,3C7.95,3 4.21,4.34 1.2,6.6L3,9C5.5,7.12 8.62,6 12,6C15.38,6 18.5,7.12 21,9L22.8,6.6C19.79,4.34 16.05,3 12,3M12,9C9.3,9 6.81,9.89 4.8,11.4L6.6,13.8C8.1,12.67 9.97,12 12,12C14.03,12 15.9,12.67 17.4,13.8L19.2,11.4C17.19,9.89 14.7,9 12,9Z" />
+                        </svg>
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M2,22V20H5V15H2V13H5V8H2V6H5V2H7V6H11V2H13V6H18V8H13V13H18V15H13V20H18V22H13V17H5V22H2M7,8V13H11V8H7M7,15V20H11V15H7Z" />
+                        </svg>
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M16,20H8V6H16M16.67,4H15V2H9V4H7.33C6.6,4 6,4.6 6,5.33V20.67C6,21.4 6.6,22 7.33,22H16.67C17.4,22 18,21.4 18,20.67V5.33C18,4.6 17.4,4 16.67,4Z" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="phone-screen">
+                    <div class="screenshot-carousel" id="screenshotCarousel">
+                        <!-- Screenshots loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Content -->
+        <div class="content-section">
+            <img src="logo.png" alt="Vius" class="logo">
+            <h1 class="tagline">
+                <span class="highlight-green">Rate</span> Your Leaders.<br>
+                <span class="highlight-red">Hold Power</span> Accountable.
+            </h1>
+            <p class="subtitle">
+                Join thousands of citizens tracking politician performance. Your voice matters.
+            </p>
+
+            <div class="cta-group">
+                <a href="https://github.com/vius-dev/viusinvite/releases/download/v0.0.1.5/app-release.apk"
+                    class="btn btn-primary">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z" />
+                    </svg>
+                    Download Vius APK
+                </a>
+            </div>
+
+            <div class="coming-soon-badges">
+                <div class="badge">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M3,20.5L3,3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.61 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
+                    </svg>
+                    Play Store — Coming Soon
+                </div>
+                <div class="badge">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z" />
+                    </svg>
+                    iOS — Coming Soon
+                </div>
+            </div>
+
+            <div class="features-row">
+                <div class="feature-mini">
+                    <span class="feature-emoji">👍</span>
+                    <span class="feature-text">Rate Politicians</span>
+                </div>
+                <div class="feature-mini">
+                    <span class="feature-emoji">📊</span>
+                    <span class="feature-text">Live Ratings</span>
+                </div>
+                <div class="feature-mini">
+                    <span class="feature-emoji">💬</span>
+                    <span class="feature-text">Join Discourse</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-inline">
+            © 2026 Vius
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+        </div>
+    </main>
+
+    <script>
+        // ============================================
+        // ADD YOUR SCREENSHOT FILENAMES HERE
+        // Just add new filenames to this array!
+        // ============================================
+        const screenshots = [
+            'screen1.png',
+            'screen2.png',
+            'screen3.png',
+            'screen4.png',
+            'screen5.png',
+            'screen6.png',
+            'screen7.png',
+            'screen8.png',
+            'screen9.png',
+            'screen10.png',
+            'screen11.png',
+            'screen12.png',
+        ];
+
+        const carousel = document.getElementById('screenshotCarousel');
+        let currentIndex = -1;
+
+        // Create img elements for all screenshots
+        screenshots.forEach((src, i) => {
+            const img = document.createElement('img');
+            img.src = `screenshots/img/${src}`;
+            img.alt = `App Screenshot ${i + 1}`;
+            img.className = 'screenshot';
+            carousel.appendChild(img);
+        });
+
+        function showRandomScreenshot() {
+            const imgs = carousel.querySelectorAll('.screenshot');
+            if (imgs.length === 0) return;
+
+            let newIndex;
+            do {
+                newIndex = Math.floor(Math.random() * imgs.length);
+            } while (newIndex === currentIndex && imgs.length > 1);
+
+            if (currentIndex >= 0) imgs[currentIndex].classList.remove('active');
+            imgs[newIndex].classList.add('active');
+            currentIndex = newIndex;
+        }
+
+        showRandomScreenshot();
+        setInterval(showRandomScreenshot, 10000);
+    </script>
+</body>
+
+</html>
