@@ -4,20 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vius - Rate Your Leaders</title>
+    <title>vius - Rate Your Leaders</title>
     <meta name="description"
-        content="Join Vius and hold your political leaders accountable. Rate, discuss, and track the performance of politicians.">
+        content="Join vius and hold your political leaders accountable. Rate, discuss, and track the performance of politicians.">
 
     <!-- Open Graph / Social -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://viusapp.com/">
-    <meta property="og:title" content="Vius - Rate Your Leaders">
+    <meta property="og:title" content="vius - Rate Your Leaders">
     <meta property="og:description" content="Join the movement. Rate politicians. Hold power accountable.">
     <meta property="og:image" content="https://viusapp.com/og-image.png">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Vius - Rate Your Leaders">
+    <meta name="twitter:title" content="vius - Rate Your Leaders">
     <meta name="twitter:description" content="Join the movement. Rate politicians. Hold power accountable.">
 
     <!-- Favicon -->
@@ -150,6 +150,8 @@
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
         }
 
         .btn-primary {
@@ -157,9 +159,14 @@
             color: var(--dark);
         }
 
-        .btn-primary:hover {
+        .btn-primary:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 15px 30px rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
         }
 
         .btn svg {
@@ -325,6 +332,70 @@
             display: none;
         }
 
+        /* Download Message Styles */
+        .download-message {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            animation: slideUp 0.3s ease;
+        }
+
+        .download-message.success { background: #22C55E; }
+        .download-message.error { background: #EF4444; }
+        .download-message.info { background: #3B82F6; }
+
+        .download-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            color: #0F172A;
+            padding: 32px;
+            border-radius: 24px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            z-index: 1001;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+        }
+
+        .manual-link {
+            color: #22C55E;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .manual-link:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translate(-50%, 20px); }
+            to { opacity: 1; transform: translate(-50%, 0); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
         /* Responsive Design */
         @media (max-width: 1024px) {
             .phone-section {
@@ -359,22 +430,21 @@
             .phone-section {
                 flex: none;
                 padding: 40px 20px 0;
-                order: 1;
-                /* Phone stays top, or change to 2 to move bottom */
+                order: 2;
             }
 
             .content-section {
                 padding: 30px 24px 60px;
                 text-align: center;
-                order: 2;
+                order: 3;
             }
 
-            /* Mobile Logo Management */
             .mobile-logo-container {
                 display: flex;
                 justify-content: center;
                 width: 100%;
                 padding: 30px 20px 0;
+                order: 1;
             }
 
             .logo-mobile {
@@ -385,24 +455,8 @@
 
             .logo {
                 display: none;
-                /* Hide original logo in content section on mobile */
             }
 
-            .phone-section {
-                flex: none;
-                padding: 20px 20px 0;
-                order: 2;
-                /* Move phone below logo/header? No, structure is Logo -> Phone -> Content */
-            }
-
-            .content-section {
-                padding: 20px 24px 80px;
-                /* Reduced top padding, more bottom */
-                text-align: center;
-                order: 3;
-            }
-
-            /* Declutter mobile content */
             .tagline {
                 font-size: 28px;
                 margin-bottom: 12px;
@@ -438,7 +492,6 @@
                 justify-content: center;
             }
 
-            /* Adjust Phone Mockup for Mobile */
             .phone-frame {
                 width: 240px;
                 height: 480px;
@@ -456,15 +509,12 @@
                 padding: 30px 20px;
                 width: 100%;
                 order: 10;
-                z-index: 100;
             }
 
             .footer-inline a {
                 display: inline-block;
                 padding: 12px 8px;
-                /* Bigger touch target */
                 font-size: 13px;
-                /* Slightly larger text */
                 color: rgba(255, 255, 255, 0.8);
             }
         }
@@ -495,7 +545,7 @@
     <main class="page">
         <!-- Mobile Header Logo -->
         <div class="mobile-logo-container">
-            <img src="logo.png" alt="Vius" class="logo-mobile">
+            <img src="logo.png" alt="vius" class="logo-mobile">
         </div>
 
         <!-- Left: Phone -->
@@ -529,7 +579,7 @@
 
         <!-- Right: Content -->
         <div class="content-section">
-            <img src="logo.png" alt="Vius" class="logo">
+            <img src="logo.png" alt="vius" class="logo">
             <h1 class="tagline">
                 <span class="highlight-green">Rate</span> Your Leaders.<br>
                 <span class="highlight-red">Hold Power</span> Accountable.
@@ -539,13 +589,17 @@
             </p>
 
             <div class="cta-group">
-                <a href="https://github.com/vius-dev/landinv/releases/download/v0.0.1.5/app-release.apk"
-                    class="btn btn-primary">
+                <button onclick="startDownload(event)" class="btn btn-primary" id="downloadBtn">
                     <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z" />
+                        <path d="M5 20h14v-2H5v2zm7-18L5.33 9h3.67v4h6V9h3.67L12 2z"/>
                     </svg>
-                    Download Vius APK
-                </a>
+                    Download vius APK
+                </button>
+            </div>
+
+            <!-- Hidden backup download link -->
+            <div style="display: none;" id="downloadBackup">
+                <a href="https://github.com/vius-dev/landinv/releases/download/v0.0.1.5/app-release.apk" download="vius.apk">Backup download</a>
             </div>
 
             <div class="coming-soon-badges">
@@ -565,24 +619,14 @@
                 </div>
             </div>
 
-            <div class="features-row">
-                <div class="feature-mini">
-                    <span class="feature-emoji">👍</span>
-                    <span class="feature-text">Rate Politicians</span>
-                </div>
-                <div class="feature-mini">
-                    <span class="feature-emoji">📊</span>
-                    <span class="feature-text">Live Ratings</span>
-                </div>
-                <div class="feature-mini">
-                    <span class="feature-emoji">💬</span>
-                    <span class="feature-text">Join Discourse</span>
-                </div>
-            </div>
+            <!-- Manual download link for backup -->
+            <p style="font-size: 12px; color: #64748B; margin-top: 16px;">
+                Having trouble? <a href="https://github.com/vius-dev/landinv/releases" target="_blank" class="manual-link">Manual download</a>
+            </p>
         </div>
 
         <div class="footer-inline">
-            © 2026 Vius
+            © 2026 vius
             <a href="privacy.html">Privacy</a>
             <a href="terms.html">Terms</a>
         </div>
@@ -636,6 +680,157 @@
 
         showRandomScreenshot();
         setInterval(showRandomScreenshot, 10000);
+    </script>
+    
+    <script>
+        // Improved download function with error handling
+        function startDownload(event) {
+            const button = event.currentTarget;
+            const originalText = button.innerHTML;
+            
+            // Disable button and show loading state
+            button.innerHTML = '⏳ Preparing download...';
+            button.disabled = true;
+            
+            const downloadUrl = "https://github.com/vius-dev/landinv/releases/download/v0.0.1.5/app-release.apk";
+            const backupUrl = "https://www.viusapp.com/";
+            
+            // Try to check if URL is accessible (HEAD request)
+            fetch(downloadUrl, { 
+                method: 'HEAD',
+                mode: 'no-cors' // This prevents CORS errors
+            })
+            .then(() => {
+                // Even with no-cors, if we get here, the request didn't throw
+                // Proceed with download
+                initiateDownload(downloadUrl);
+            })
+            .catch((error) => {
+                console.log('Download check failed, trying fallback method:', error);
+                // Try fallback download method
+                fallbackDownload(downloadUrl, backupUrl);
+            })
+            .finally(() => {
+                // Reset button after 5 seconds
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                }, 5000);
+            });
+        }
+
+        function initiateDownload(url) {
+            try {
+                // Method 1: Create invisible anchor tag (most reliable)
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'vius.apk'; // Hint to download
+                link.style.display = 'none';
+                
+                document.body.appendChild(link);
+                link.click();
+                
+                // Show success message
+                showMessage('Download started! Check your downloads folder.', 'success');
+                
+                // Clean up
+                setTimeout(() => {
+                    document.body.removeChild(link);
+                }, 1000);
+                
+            } catch (error) {
+                console.error('Download initiation failed:', error);
+                // Try alternative method
+                window.open(url, '_blank');
+                showMessage('Download should start in new tab...', 'info');
+            }
+        }
+
+        function fallbackDownload(url, backupUrl) {
+            // Ask user if they want to try opening in new tab
+            if (confirm('Download didn\'t start automatically. Would you like to open it in a new tab?')) {
+                window.open(url, '_blank');
+                showMessage('Opening download in new tab...', 'info');
+            } else {
+                // Show manual download instructions
+                showManualInstructions(backupUrl);
+            }
+        }
+
+        function showMessage(text, type = 'info') {
+            // Remove any existing message
+            const existingMsg = document.querySelector('.download-message');
+            if (existingMsg) existingMsg.remove();
+            
+            // Create message element
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `download-message ${type}`;
+            msgDiv.textContent = text;
+            
+            document.body.appendChild(msgDiv);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                msgDiv.style.animation = 'fadeOut 0.3s ease';
+                setTimeout(() => msgDiv.remove(), 300);
+            }, 5000);
+        }
+
+        function showManualInstructions(backupUrl) {
+            // Create overlay
+            const overlay = document.createElement('div');
+            overlay.className = 'modal-overlay';
+            
+            // Create modal
+            const modal = document.createElement('div');
+            modal.className = 'download-modal';
+            modal.innerHTML = `
+                <h3 style="margin-bottom: 16px; font-size: 24px;">📲 Manual Download</h3>
+                <p style="margin-bottom: 16px; color: #64748B;">
+                    The automatic download isn't working. Please try one of these methods:
+                </p>
+                <ol style="margin-bottom: 24px; padding-left: 20px; line-height: 1.8; color: #334155;">
+                    <li>Right-click and select "Save link as..." on the link below</li>
+                    <li>Visit our <a href="${backupUrl}" target="_blank" style="color: #22C55E; font-weight: 500;">GitHub Releases</a> page</li>
+                    <li>Enable "Install from unknown sources" in your device settings</li>
+                </ol>
+                <div style="margin-bottom: 20px; padding: 12px; background: #F1F5F9; border-radius: 12px; word-break: break-all;">
+                    <a href="${backupUrl.replace('/latest/download/app-release.apk', '')}" target="_blank" style="color: #22C55E; font-size: 14px;">${backupUrl.replace('/latest/download/app-release.apk', '')}</a>
+                </div>
+                <button onclick="this.closest('.download-modal').remove(); document.querySelector('.modal-overlay').remove();" style="
+                    background: #0F172A;
+                    color: white;
+                    border: none;
+                    padding: 12px 24px;
+                    border-radius: 50px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    width: 100%;
+                    font-size: 16px;
+                ">Got it</button>
+            `;
+            
+            // Close modal when clicking overlay
+            overlay.onclick = () => {
+                modal.remove();
+                overlay.remove();
+            };
+            
+            document.body.appendChild(overlay);
+            document.body.appendChild(modal);
+        }
+
+        // Add keyboard support for modal (ESC to close)
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modal = document.querySelector('.download-modal');
+                const overlay = document.querySelector('.modal-overlay');
+                if (modal && overlay) {
+                    modal.remove();
+                    overlay.remove();
+                }
+            }
+        });
     </script>
 </body>
 
